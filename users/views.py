@@ -9,6 +9,7 @@ import logging
 logger = logging.getLogger(__name__)
 
 class RegisterView(APIView):
+    """Для регистрации новых пользоватетей."""
     def post(self, request):
         serializer = RegisterSerializer(data=request.data)
         if serializer.is_valid():
@@ -22,6 +23,7 @@ class RegisterView(APIView):
 
 
 class CustomAuthToken(ObtainAuthToken):
+    """Для входа в аккаунт зарегестрированных пользователей."""
     serializer_class = CustomAuthTokenSerializer
 
     def post(self, request, *args, **kwargs):
