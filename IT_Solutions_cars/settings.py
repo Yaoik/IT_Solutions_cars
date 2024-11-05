@@ -20,6 +20,7 @@ ALLOWED_HOSTS = []
 MY_APPS = [
     'users',
     'common',
+    'cars',
 ]
 
 EXTERNAL_LIBRARIES = [
