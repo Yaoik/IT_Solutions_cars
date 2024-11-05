@@ -24,6 +24,7 @@ MY_APPS = [
 
 EXTERNAL_LIBRARIES = [
     'rest_framework',
+    'rest_framework.authtoken',
 ]
 
 DJANGO_APPS = [
@@ -139,13 +140,23 @@ LOGGING = {
     },
     "root": {
         "handlers": ["console"],
-        "level": "INFO" if DEBUG else "INFO",
+        "level": "INFO" if DEBUG else "ERROR",
     },
     "loggers": {
         "django.db": {
             "handlers": ["console"],
-            "level": "INFO" if DEBUG else "INFO",
+            "level": "INFO" if DEBUG else "ERROR",
             "propagate": False,
         },
     },
+}
+
+# auth settings
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',  # Аутентификация токенами
+    ],
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',  # По умолчанию аутентификация требуется для всех запросов
+    ],
 }
