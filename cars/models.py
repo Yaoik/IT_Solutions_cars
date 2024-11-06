@@ -15,11 +15,11 @@ class Make(Timestamped):
 
 
 class Car(Timestamped):
-    make = models.ForeignKey(Make, on_delete=models.SET_NULL, null=True)
+    make = models.ForeignKey(Make, on_delete=models.SET_NULL, null=True, related_name='cars')
     model = models.CharField(max_length=64)
     year = models.PositiveSmallIntegerField(null=True)
     description = models.CharField(max_length=512)
-    owner = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    owner = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name='cars')
     
     def __str__(self):
         return f'<Car {self.model}>'
