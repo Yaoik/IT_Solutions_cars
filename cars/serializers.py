@@ -17,3 +17,5 @@ class CarSerializer(serializers.ModelSerializer):
         model = Car
         fields = ('id', 'make', 'model', 'year', 'description', 'owner')
         read_only_fields = ('id',)
+        
+    
