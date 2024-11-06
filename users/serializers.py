@@ -45,6 +45,13 @@ class RegisterSerializer(serializers.ModelSerializer):
         user.save()
         return user
 
+class UserPublicSerializer(serializers.ModelSerializer):
+    """Serializer для отображения данных пользователя"""
+    registered_at = serializers.DateTimeField(source="date_joined", read_only=True)
+    
+    class Meta:
+        fields = ('id', 'username', 'registered_at', 'is_superuser', )
+        read_only_fields = ('id', 'username', 'is_superuser', )
 
 
 class CustomAuthTokenSerializer(serializers.Serializer):

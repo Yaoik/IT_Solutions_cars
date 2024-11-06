@@ -11,4 +11,3 @@ class Car(Timestamped):
     year = models.PositiveSmallIntegerField()
     description = models.CharField(max_length=512)
     owner = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
-    
