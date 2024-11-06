@@ -21,6 +21,7 @@ MY_APPS = [
     'users',
     'common',
     'cars',
+    'comments',
 ]
 
 EXTERNAL_LIBRARIES = [
