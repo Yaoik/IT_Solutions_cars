@@ -5,6 +5,7 @@ from rest_framework import serializers
 from django.contrib.auth import authenticate
 from users.models import User
 from .models import Car, Make
+from django.conf import settings
 import logging
 
 
@@ -28,6 +29,13 @@ class CarSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         validated_data['owner'] = self.context['request'].user
         return super().create(validated_data)   
+    
+    def validate_year(self, value):
+        if int(value) > settings.CAR_MAX_YEAR:
+            raise serializers.ValidationError(f'Некорректный year. Переданный: {value} Максимально допустимый: {settings.CAR_MAX_YEAR}')
+        if int(value) < settings.CAR_MIN_YEAR:
+            raise serializers.ValidationError(f'Некорректный year. Переданный: {value} Минимально допустимый: {settings.CAR_MIN_YEAR}')
+        return value
     
     def to_representation(self, instance:Car):
         representation = super().to_representation(instance)

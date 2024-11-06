@@ -161,3 +161,8 @@ REST_FRAMEWORK = {
     #    'rest_framework.permissions.IsAuthenticated',  # По умолчанию аутентификация требуется для всех запросов
     #],
 }
+
+
+# Cars validation params
+CAR_MAX_YEAR = 2030
+CAR_MIN_YEAR = 1900
