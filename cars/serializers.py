@@ -12,6 +12,7 @@ import logging
 logger = logging.getLogger(__name__)
 
 class CarSerializer(serializers.ModelSerializer):
+    """Serializer для добавления и обновления Car"""
     make = serializers.CharField()
     owner = serializers.ReadOnlyField(source='owner.username')
 

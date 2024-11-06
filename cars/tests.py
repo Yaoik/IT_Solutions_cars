@@ -11,7 +11,7 @@ from rest_framework import status
 logger = logging.getLogger(__name__)
 
 class TestCar(APITestCase):
-    """Тесты эндпоинта login"""
+    """Тесты эндпоинта cars"""
 
     def create_car_data(self):
         makes = ["Toyota", "Ford", "Honda"]

@@ -7,6 +7,7 @@ from .models import Car
 
 
 class CarViewSet(viewsets.ModelViewSet):
+    """ViewSet для Car CRUD"""
     queryset = Car.objects.all()
     serializer_class = CarSerializer
     permission_classes = [IsAuthenticatedOrReadOnly, IsCarOwnerOrReadOnly]
