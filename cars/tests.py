@@ -49,6 +49,24 @@ class TestCar(APITestCase):
         self.cars_url = reverse('cars:car-list')  # Для списка
         self.car_detail_url = lambda car_id: reverse('cars:car-detail', args=[car_id])  # Для деталей
 
+    def test_deleting_car(self):
+        """Тесты с удалением модели Car."""
+        
+        car_data = self.create_car_data()
+        response = self.client.post(self.cars_url, data=car_data, headers={'Authorization': f'Token {self.user_1_token}'})
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        self.assertIn('id', response.json())
+        car_id = response.json()['id']
+        
+        # Удаление чужой модели
+        response = self.client.delete(self.car_detail_url(car_id), headers={'Authorization': f'Token {self.user_2_token}'})
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+        self.assertIn('detail', response.json())
+        
+        # Удаление своей модели
+        response = self.client.delete(self.car_detail_url(car_id), headers={'Authorization': f'Token {self.user_1_token}'})
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+        
     def test_create_car_error(self):
         """Тесты ошибок при создании"""
         
