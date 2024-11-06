@@ -7,7 +7,7 @@ from .models import Comment
 
 
 class CommentViewSet(viewsets.ModelViewSet):
-    """ViewSet для Comment !только POST!"""
+    """ViewSet для Comment !только CREATE и READ!"""
     queryset = Comment.objects.all()
     serializer_class = CommentSerializer
     permission_classes = [IsAuthenticatedOrReadOnly, IsCommentOwnerAndCreateOrReadOnly]
