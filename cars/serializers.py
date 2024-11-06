@@ -11,6 +11,7 @@ import logging
 logger = logging.getLogger(__name__)
 
 class CarSerializer(serializers.ModelSerializer):
+    make = serializers.CharField()
     owner = serializers.ReadOnlyField(source='owner.username')
 
     class Meta:
@@ -18,4 +19,17 @@ class CarSerializer(serializers.ModelSerializer):
         fields = ('id', 'make', 'model', 'year', 'description', 'owner')
         read_only_fields = ('id',)
         
+    def validate_make(self, value):
+        if value is None or value == '':
+            raise serializers.ValidationError('Поле Make обязательно!')
+        make, created = Make.objects.get_or_create(name=value)
+        return make
     
+    def create(self, validated_data):
+        validated_data['owner'] = self.context['request'].user
+        return super().create(validated_data)   
+    
+    def to_representation(self, instance:Car):
+        representation = super().to_representation(instance)
+        representation['make'] = instance.make.name # type: ignore
+        return representation
