@@ -156,11 +156,15 @@ LOGGING = {
 # auth settings
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework.authentication.TokenAuthentication',  # Аутентификация токенами
+        'rest_framework.authentication.TokenAuthentication',
     ],
-    #'DEFAULT_PERMISSION_CLASSES': [
-    #    'rest_framework.permissions.IsAuthenticated',  # По умолчанию аутентификация требуется для всех запросов
-    #],
+    'DEFAULT_THROTTLE_CLASSES': [
+        'rest_framework.throttling.ScopedRateThrottle',
+    ],
+    'DEFAULT_THROTTLE_RATES': {
+        'comment': '10/min',
+        'car': '5/min'
+    }
 }
 
 

@@ -7,6 +7,7 @@ from .models import Comment
 
 class CommentViewSet(viewsets.ModelViewSet):
     """ViewSet для Comment !только CREATE и READ!"""
+    throttle_scope = 'comment'
     queryset = Comment.objects.all()
     serializer_class = CommentSerializer
     permission_classes = [IsAuthenticatedOrReadOnly, IsCommentOwnerAndCreateOrReadOnly]

@@ -8,6 +8,7 @@ from .models import Car
 
 class CarViewSet(viewsets.ModelViewSet):
     """ViewSet для Car CRUD"""
+    throttle_scope = 'car'
     queryset = Car.objects.all()
     serializer_class = CarSerializer
     permission_classes = [IsAuthenticatedOrReadOnly, IsCarOwnerOrReadOnly]
