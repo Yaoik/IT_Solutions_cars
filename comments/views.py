@@ -5,12 +5,17 @@ from .serializers import CommentSerializer
 from .models import Comment
 
 
-
 class CommentViewSet(viewsets.ModelViewSet):
     """ViewSet для Comment !только CREATE и READ!"""
     queryset = Comment.objects.all()
     serializer_class = CommentSerializer
     permission_classes = [IsAuthenticatedOrReadOnly, IsCommentOwnerAndCreateOrReadOnly]
 
+    def get_queryset(self):
+        car_id = self.kwargs['car_id']
+        return Comment.objects.filter(car_id=car_id)
+    
     def perform_create(self, serializer):
-        serializer.save(owner=self.request.user, car=self.kwargs['car_id'])
+        car_id = self.kwargs['car_id']
+        serializer.context['car_id'] = car_id
+        serializer.save(author=self.request.user)

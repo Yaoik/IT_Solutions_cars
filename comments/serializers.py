@@ -20,9 +20,8 @@ class CommentSerializer(serializers.ModelSerializer):
         read_only_fields = ('id', 'created_at', 'car', 'user' )
         
     def create(self, validated_data):
+        validated_data['car'] = Car.objects.get(id=self.context['car_id'])
         validated_data['author'] = self.context['request'].user
-        car_id = self.context.get('car_id')
-        validated_data['car'] = Car.objects.get(id=car_id)
         return super().create(validated_data)   
     
     def to_representation(self, instance:Comment):

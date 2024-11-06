@@ -5,4 +5,6 @@ from django.urls import path, include
 router = DefaultRouter()
 router.register('', CommentViewSet, basename='comment')
 
+app_name = 'comments'
+
 urlpatterns = router.urls
