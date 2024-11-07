@@ -25,6 +25,7 @@ $(document).ready(function() {
         }
     });
     $('#create_comment').click(function(e) {
+        url = $('input[name=comments_url]').val()
         e.preventDefault();
 
         var csrftoken = $('input[name="csrfmiddlewaretoken"]').val();

@@ -25,6 +25,7 @@ $(document).ready(function() {
         }
     });
     $('#editButton').click(function(e) {
+        url = $('input[name=car_update_url]').val()
         e.preventDefault();
 
         var csrftoken = $('input[name="csrfmiddlewaretoken"]').val();
