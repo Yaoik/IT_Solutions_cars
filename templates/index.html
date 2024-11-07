@@ -11,4 +11,34 @@
 {% block content %}
     <input type="hidden" name="car_url" value="{% url 'cars:car-list' %}">
     <div id="car-list" class="flex flex-wrap justify-center text-center border border-black gap-2 mt-32"></div>
+
+    <div class="w-4/12 bg-slate-100 border h-auto m-auto mt-16">
+        <form id="create-car-form" class="w-full h-full [&_div]:flex [&_div]:w-auto [&_div]:min-h-8 flex flex-col m-4 [&_div_input]:border [&_div_input]:w-64 [&_div_label]:w-64 gap-2">
+            {% csrf_token %}
+
+            <div class="">
+                <label for="make">Марка:</label>
+                <input type="text" id="make" name="make" required>
+            </div>
+
+            <div class="">
+                <label for="model">Модель:</label>
+                <input type="text" id="model" name="model" required>
+            </div>
+
+            <div class="">
+                <label for="year">Год (между {{CAR_MIN_YEAR}} и {{CAR_MAX_YEAR}}):</label>
+                <input type="number" id="year" name="year" max="{{CAR_MAX_YEAR}}" min="{{CAR_MIN_YEAR}}">
+            </div>
+
+            <div class="">
+                <label for="description">Описание:</label>
+                <input type="text" id="description" name="description" required>
+            </div>
+
+            <button type="button" id="createButton" name="createButton" data-url="{% url 'cars:car-list' %}">Добавить машину</button>
+        </form>
+
+        <div id="responseMessage"></div>
+    </div>
 {% endblock %}

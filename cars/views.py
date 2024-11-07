@@ -3,10 +3,13 @@ from rest_framework import viewsets, permissions
 from .permissons import IsCarOwnerOrReadOnly, IsAuthenticatedOrReadOnly
 from .serializers import CarSerializer
 from .models import Car
+from django.conf import settings
 
 def main_page(request):
     """Главная страница со списком автомобилей"""
-    return render(request, 'index.html')
+    CAR_MAX_YEAR = 2030
+    CAR_MIN_YEAR = 1900
+    return render(request, 'index.html', context={'CAR_MIN_YEAR':CAR_MIN_YEAR, 'CAR_MAX_YEAR':CAR_MAX_YEAR})
 
 class CarViewSet(viewsets.ModelViewSet):
     """ViewSet для Car CRUD"""

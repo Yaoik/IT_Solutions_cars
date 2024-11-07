@@ -25,4 +25,55 @@ $(document).ready(function() {
             console.log('(')
         }
     });
+    $('#createButton').click(function(e) {
+        e.preventDefault();
+
+        var csrftoken = $('input[name="csrfmiddlewaretoken"]').val();
+        var url = $('button[name="createButton"]').data('url');
+
+        var formData = {
+            make: $('#make').val(),
+            model: $('#model').val(),
+            year: $('#year').val(),
+            description: $('#description').val(),
+        };
+
+        $.ajax({
+            url: url,
+            type: 'POST',
+            dataType: 'json',
+            data: JSON.stringify(formData),
+            contentType: 'application/json',
+            headers: {
+                'X-CSRFToken': csrftoken,
+            },
+            success: function(response) {
+                window.location.reload()
+            },
+            error: function(xhr) {
+                var errors;
+                try {
+                    errors = JSON.parse(xhr.responseText);
+                } catch (e) {
+                    errors = xhr.responseText;
+                }
+                var errorMessages = '';
+                if (typeof errors === 'string') {
+                    errorMessages += '<p style="color: red;">' + errors + '</p>';
+                }
+                else if (typeof errors === 'object' && errors !== null) {
+                    $.each(errors, function(field, messages) {
+                        if (Array.isArray(messages)) {
+                            $.each(messages, function(index, message) {
+                                errorMessages += '<p style="color: red;">Ошибка: ' + field + ' -> ' + message + '</p>';
+                            });
+                        } else {
+                            errorMessages += '<p style="color: red;">Ошибка: ' + field + ' -> ' + messages + '</p>';
+                        }
+                    });
+                }
+                $('#responseMessage').html(errorMessages);
+            }
+        });
+    });
 });
