@@ -1,16 +1,18 @@
 ## Getting started
 
+
+
 1. Создайте виртуальное окружение
 ```bash
 python -m venv .venv
 ```
-2. Переключитесь на него
-```bash
-.venv\Scripts\activate.bat  
-```
-3. Запустите базу данных
+2. Запустите базу данных
 ```bash
 docker-compose up
+```
+3. Переключитесь на .venv
+```bash
+.venv\Scripts\activate.bat  
 ```
 4. Установите зависимости
 ```bash
