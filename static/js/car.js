@@ -1,6 +1,5 @@
 $(document).ready(function() {
-    url = $('input[name=car_url]').val()
-    detail_url = $('input[name=car_url]').data('car')
+    url = $('input[name=car_update_url]').val()
     $.ajax({
         url: url,
         type: 'GET',
@@ -11,25 +10,24 @@ $(document).ready(function() {
         },
         success: function(response) {
             $('#car-list').empty();
-            $.each(response, function(index, car) {
-                var carHtml = `<a class="w-64 h-32 border hover:bg-slate-200" href="${detail_url.replace('0', car.id)}">`;
+            $.each([response], function(index, car) {
+                var carHtml = `<div class="w-64 h-32 border">`;
                 carHtml += '<h3>' + car.make + ' ' + car.model + ' (Год: ' + (car.year ? car.year : 'Не указан') + ')</h3>';
                 carHtml += '<p><strong>Описание:</strong> ' + car.description + '</p>';
                 carHtml += '<p><strong>Владелец:</strong> ' + car.owner + '</p>';
-                carHtml += '</a>';
+                carHtml += '</div>';
 
-                $('#car-list').append(carHtml);
+                $('#car-detail').append(carHtml);
             });
         },
         error: function(xhr) {
             console.log('(')
         }
     });
-    $('#createButton').click(function(e) {
+    $('#editButton').click(function(e) {
         e.preventDefault();
 
         var csrftoken = $('input[name="csrfmiddlewaretoken"]').val();
-        var url = $('button[name="createButton"]').data('url');
 
         var formData = {
             make: $('#make').val(),
@@ -37,10 +35,12 @@ $(document).ready(function() {
             year: $('#year').val(),
             description: $('#description').val(),
         };
-
+        for (i in formData) {
+            if (formData[i] == ''){delete formData[i]}
+        }
         $.ajax({
             url: url,
-            type: 'POST',
+            type: 'PATCH',
             dataType: 'json',
             data: JSON.stringify(formData),
             contentType: 'application/json',

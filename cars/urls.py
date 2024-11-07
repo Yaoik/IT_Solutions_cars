@@ -1,7 +1,7 @@
 from .views import CarViewSet
 from rest_framework.routers import DefaultRouter
 from django.urls import path, include
-from .views import main_page
+from .views import main_page, car_detail_page
 
 router = DefaultRouter()
 router.register('', CarViewSet, basename='car')
@@ -12,5 +12,6 @@ urlpatterns = [
 ]
 
 urlpatterns += [
-    path('', main_page, name='index')
+    path('', main_page, name='index'),
+    path('car/<int:id>/', car_detail_page, name='carr_page'),
 ]

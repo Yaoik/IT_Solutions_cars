@@ -3,18 +3,20 @@
 
 
 {% block scripts %}
-    <script src="{% static 'js/cars.js' %}"></script>
+    <script src="{% static 'js/car.js' %}"></script>
 {% endblock %}
 
 {% block title %}Главная страница{% endblock %}
 
 {% block content %}
-    <input type="hidden" name="car_url" value="{% url 'cars:car-list' %}" data-car="{% url 'cars:carr_page' id=0 %}">
-    <div id="car-list" class="flex flex-wrap justify-center text-center border border-black gap-2 mt-32"></div>
+    <input type="hidden" name="car_update_url" value="{% url 'cars:car-detail' pk=id %}">
+    <div id="car-detail" class="w-full pt-32 justify-center text-center flex ">
 
-    {% if not user.is_anonymous %}
+    </div>
+
+    {% if not user.is_anonymous and owner %}
     <div class="w-4/12 bg-slate-100 border h-auto m-auto mt-16">
-        <form id="create-car-form" class="w-full h-full [&_div]:flex [&_div]:w-auto [&_div]:min-h-8 flex flex-col m-4 [&_div_input]:border [&_div_input]:w-64 [&_div_label]:w-64 gap-2">
+        <form id="edit-car-form" class="w-full h-full [&_div]:flex [&_div]:w-auto [&_div]:min-h-8 flex flex-col m-4 [&_div_input]:border [&_div_input]:w-64 [&_div_label]:w-64 gap-2">
             {% csrf_token %}
 
             <div class="">
@@ -37,10 +39,10 @@
                 <input type="text" id="description" name="description" required>
             </div>
 
-            <button type="button" id="createButton" name="createButton" data-url="{% url 'cars:car-list' %}">Добавить машину</button>
+            <button type="button" id="editButton" name="editButton" data-url="{% url 'cars:car-list' %}">Изменить параметры машины</button>
         </form>
 
         <div id="responseMessage"></div>
     </div>
-    {% endif %}
+    {% endif %} 
 {% endblock %}
