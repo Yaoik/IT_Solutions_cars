@@ -4,12 +4,14 @@
 
 {% block scripts %}
     <script src="{% static 'js/car.js' %}"></script>
+    <script src="{% static 'js/comments.js' %}"></script>
 {% endblock %}
 
 {% block title %}Главная страница{% endblock %}
 
 {% block content %}
     <input type="hidden" name="car_update_url" value="{% url 'cars:car-detail' pk=id %}">
+    <input type="hidden" name="comments_url" value="{% url 'cars:comments:comment-list' car_id=id %}">
     <div id="car-detail" class="w-full pt-32 justify-center text-center flex ">
 
     </div>
@@ -45,4 +47,25 @@
         <div id="responseMessage"></div>
     </div>
     {% endif %} 
+
+    {% if not user.is_anonymous%}
+    <div class="w-4/12 bg-slate-100 border h-auto m-auto mt-16">
+        <form id="create-comment-form" class="w-full h-full [&_div]:flex [&_div]:w-auto [&_div]:min-h-8 flex flex-col m-4 [&_div_input]:border [&_div_input]:w-64 [&_div_label]:w-64 gap-2">
+            {% csrf_token %}
+
+            <div class="">
+                <label for="content">Текст:</label>
+                <input type="text" id="content" name="content" required>
+            </div>
+
+            <button type="button" id="create_comment" name="create_comment" data-url="{% url 'cars:comments:comment-list' car_id=id %}">Добавить комментарий</button>
+        </form>
+
+        <div id="responseMessage_comment"></div>
+    </div>
+    {% endif %} 
+
+    <h2 class='w-full text-center mt-32'>Комментарии:</h2>
+    <div id="comment-list" class="flex flex-col justify-center text-center gap-2 w-full items-center"></div>
+
 {% endblock %}
