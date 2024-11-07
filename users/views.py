@@ -15,6 +15,9 @@ logger = logging.getLogger(__name__)
 def register_form(request):
     return render(request, 'register.html')
 
+def login_form(request):
+    return render(request, 'login.html')
+
 class RegisterView(APIView):    
     """Для регистрации новых пользоватетей."""
     def post(self, request):
@@ -38,5 +41,6 @@ class CustomAuthToken(ObtainAuthToken):
         serializer = self.serializer_class(data=request.data, context={'request': request})
         serializer.is_valid(raise_exception=True)
         user = serializer.validated_data['user'] # type:ignore
+        login(request, user) # type:ignore
         token, created = Token.objects.get_or_create(user=user)
         return Response({'token': token.key})

@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import RegisterView, CustomAuthToken, register_form
+from .views import RegisterView, CustomAuthToken, register_form, login_form
 
 urlpatterns = [
     path('api/users/register/', RegisterView.as_view(), name='register'),
@@ -7,5 +7,6 @@ urlpatterns = [
 ]
 
 urlpatterns += [
-    path('register/', register_form, name='register_form')
+    path('register/', register_form, name='register_form'),
+    path('login/', login_form, name='login_form'),
 ]

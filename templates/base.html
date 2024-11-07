@@ -16,11 +16,15 @@
         <nav>
             <ul class='flex flex-row justify-between [&_li]:h-16 [&_li]:w-64 [&_li]:rounded-md [&_li]:bg-slate-200 [&_li]:text-center [&_li_a]:justify-center [&_li_a]:items-center [&_li_a]:flex [&_li_a]:w-full [&_li_a]:h-full'>
                 <li><a href="/">Главная</a></li>
-                {% if user.is_superuser %}
-                    <li><a href="/">Swagger</a></li>
+                {% if not user.is_anonymous %}
+                    {% if user.is_superuser %}
+                        <li><a href="{% url 'schema-swagger-ui' %}">Swagger</a></li>
+                    {% else %}
+                        <li><a href="{% url 'schema-swagger-ui' %}">Swagger (Доступно только администратору!)</a></li>
+                    {% endif %}
                 {% endif %}
                 {% if user.is_anonymous %}
-                    <li><a href="/">Войти в аккаунт</a></li>
+                    <li><a href="{% url 'users:login_form' %}">Войти в аккаунт</a></li>
                     <li><a href="{% url 'users:register_form' %}">Зарегистрироваться</a></li>
                 {% else %}
                     <li><a href="/">Текущий аккаунт: {{user.username}}</a></li>
