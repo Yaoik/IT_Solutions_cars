@@ -9,6 +9,6 @@
 {% block title %}Главная страница{% endblock %}
 
 {% block content %}
-    <h2>Добро пожаловать на главную страницу</h2>
-    <p>Здесь вы найдёте много полезной информации.</p>
+    <input type="hidden" name="car_url" value="{% url 'cars:car-list' %}">
+    <div id="car-list" class="flex flex-wrap justify-center text-center border border-black gap-2 mt-32"></div>
 {% endblock %}

@@ -164,8 +164,8 @@ REST_FRAMEWORK = {
         'rest_framework.throttling.ScopedRateThrottle',
     ],
     'DEFAULT_THROTTLE_RATES': {
-        'comment': '10/min',
-        'car': '5/min'
+        'comment': '30/min',
+        'car': '30/min'
     },
 }
 
