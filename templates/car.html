@@ -41,7 +41,7 @@
                 <input type="text" id="description" name="description" required>
             </div>
 
-            <button type="button" id="editButton" name="editButton" data-url="{% url 'cars:car-list' %}">Изменить параметры машины</button>
+            <button type="button" id="editButton" name="editButton" data-url="{% url 'cars:car-list' %}" class="bg-green-200 hover:bg-green-400 w-32 mx-auto rounded-md">Изменить параметры машины</button>
             <button type="button" id="delteButton" name="delteButton" data-url="{% url 'cars:car-list' %}" class="bg-red-200 hover:bg-red-400 w-32 mx-auto rounded-md" >Удалить машину</button>
         </form>
         <div id="responseMessage"></div>

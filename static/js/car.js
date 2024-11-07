@@ -11,7 +11,7 @@ $(document).ready(function() {
         success: function(response) {
             $('#car-list').empty();
             $.each([response], function(index, car) {
-                var carHtml = `<div class="w-64 h-32 border">`;
+                var carHtml = `<div class="w-64 border">`;
                 carHtml += '<h3>' + car.make + ' ' + car.model + ' (Год: ' + (car.year ? car.year : 'Не указан') + ')</h3>';
                 carHtml += '<p><strong>Описание:</strong> ' + car.description + '</p>';
                 carHtml += '<p><strong>Владелец:</strong> ' + car.owner + '</p>';
