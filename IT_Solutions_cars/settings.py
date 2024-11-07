@@ -62,7 +62,7 @@ ROOT_URLCONF = 'IT_Solutions_cars.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -173,3 +173,15 @@ REST_FRAMEWORK = {
 # Cars validation params
 CAR_MAX_YEAR = 2030
 CAR_MIN_YEAR = 1900
+
+
+
+
+# Настройка статики
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+STATIC_URL = '/static/'
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),
+]

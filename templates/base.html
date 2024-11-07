@@ -1,0 +1,41 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Мой сайт{% endblock %}</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    {% block scripts %}
+        
+    {% endblock %}
+</head>
+<body>
+    <header class="w-full h-16 bg-gray-100">
+        <nav>
+            <ul class='flex flex-row justify-between [&_li]:h-16 [&_li]:w-64 [&_li]:rounded-md [&_li]:bg-slate-200 [&_li]:text-center [&_li_a]:justify-center [&_li_a]:items-center [&_li_a]:flex [&_li_a]:w-full [&_li_a]:h-full'>
+                <li><a href="/">Главная</a></li>
+                {% if user.is_superuser %}
+                    <li><a href="/">Swagger</a></li>
+                {% endif %}
+                {% if user.is_anonimouse %}
+                    <li><a href="/">Вход в аккаунт</a></li>
+                {% else %}
+                    <li><a href="/">Текущий аккаунт: {{user.username}}</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        {% block content %}
+        
+        {% endblock %}
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Мой сайт. Все права защищены.</p>
+    </footer>
+</body>
+</html>

@@ -15,11 +15,12 @@ schema_view = get_schema_view(
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path("api/users/", include(("users.urls", 'users'), namespace="users")),
-    path("api/cars/", include(("cars.urls", 'cars'), namespace="cars")),
+    path("", include(("users.urls", 'users'), namespace="users")),
+    path("", include(("cars.urls", 'cars'), namespace="cars")),
 ]
 
 urlpatterns += [
     path("api/docs/swagger/", schema_view.with_ui("swagger", cache_timeout=0), name="schema-swagger-ui"),
     path("api/docs/redoc/", schema_view.with_ui("redoc", cache_timeout=0), name="schema-redoc"),
 ]
+

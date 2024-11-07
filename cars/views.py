@@ -4,7 +4,8 @@ from .permissons import IsCarOwnerOrReadOnly, IsAuthenticatedOrReadOnly
 from .serializers import CarSerializer
 from .models import Car
 
-
+def main_page(request):
+    return render(request, 'index.html')
 
 class CarViewSet(viewsets.ModelViewSet):
     """ViewSet для Car CRUD"""
