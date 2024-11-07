@@ -51,7 +51,7 @@ class TestComments(APITestCase):
         self.car_detail_url = lambda car_id: reverse('cars:car-detail', args=[car_id]) # Для деталей
         
         self.comments_url = lambda car_id: reverse('cars:comments:comment-list', kwargs={'car_id': car_id}) # Для списка
-        self.comment_detail_url = lambda car_id, comment_id: reverse('cars:comments:comment-detail', kwargs={'car_id': car_id, 'pk': comment_id}) # Для деталей
+        #self.comment_detail_url = lambda car_id, comment_id: reverse('cars:comments:comment-detail', kwargs={'car_id': car_id, 'pk': comment_id}) # Для деталей
         
         self.client.post(self.cars_url, data=self.create_car_data(), headers={'Authorization': f'Token {self.user_1_token}'})
         self.client.post(self.cars_url, data=self.create_car_data(), headers={'Authorization': f'Token {self.user_2_token}'})
@@ -72,12 +72,13 @@ class TestComments(APITestCase):
         self.assertEqual(responce.status_code, status.HTTP_401_UNAUTHORIZED)
         self.assertIn('detail', responce.json())
 
-    def test_read_comment_error(self):
+    def not_need_test_read_comment_error(self):
         """Тесты ошибок просмотра комментария по id"""
         car_id = Car.objects.first().id # type: ignore
         responce = self.client.post(self.comments_url(car_id), data={'content': 'Первый коммет!'}, headers={'Authorization': f'Token {self.user_2_token}'})
         comment_1_id = responce.json()['id']
         
+        self.comment_detail_url = lambda car_id, comment_id: reverse('cars:comments:comment-detail', kwargs={'car_id': car_id, 'pk': comment_id}) # Для деталей
         responce = self.client.get(self.comment_detail_url(car_id, comment_1_id))
         self.assertEqual(responce.status_code, status.HTTP_401_UNAUTHORIZED)
         self.assertIn('detail', responce.json())

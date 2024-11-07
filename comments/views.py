@@ -1,11 +1,10 @@
 from django.shortcuts import render
-from rest_framework import viewsets, permissions
+from rest_framework import viewsets, permissions, mixins
 from .permissons import IsCommentOwnerAndCreateOrReadOnly, IsAuthenticatedOrReadOnly
 from .serializers import CommentSerializer
 from .models import Comment
 
-
-class CommentViewSet(viewsets.ModelViewSet):
+class CommentViewSet(viewsets.GenericViewSet, mixins.ListModelMixin, mixins.CreateModelMixin):
     """ViewSet для Comment !только CREATE и READ!"""
     throttle_scope = 'comment'
     queryset = Comment.objects.all()

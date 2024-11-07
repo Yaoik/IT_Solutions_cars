@@ -1,5 +1,5 @@
 from pathlib import Path
-
+import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -27,6 +27,7 @@ MY_APPS = [
 EXTERNAL_LIBRARIES = [
     'rest_framework',
     'rest_framework.authtoken',
+    'drf_yasg',
 ]
 
 DJANGO_APPS = [
@@ -157,6 +158,7 @@ LOGGING = {
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.TokenAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
     ],
     'DEFAULT_THROTTLE_CLASSES': [
         'rest_framework.throttling.ScopedRateThrottle',
@@ -164,7 +166,7 @@ REST_FRAMEWORK = {
     'DEFAULT_THROTTLE_RATES': {
         'comment': '10/min',
         'car': '5/min'
-    }
+    },
 }
 
 
