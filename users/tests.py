@@ -73,6 +73,7 @@ class TestUserRegister(APITestCase):
         return user_data
         
     def setUp(self):
+        self.client.logout()
         self.register_url = reverse('users:register')
         self.client.post(self.register_url, self.create_user_data(), format='json')
         self.test_user:User = User.objects.first() # type:ignore

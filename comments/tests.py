@@ -38,6 +38,7 @@ class TestComments(APITestCase):
         return user_data
         
     def setUp(self):
+        self.client.logout()
         register_url = reverse('users:register') # регистрация User
         
         user_data = self.create_user_data()
@@ -58,6 +59,7 @@ class TestComments(APITestCase):
 
     def test_create_comment_error(self):
         """Тесты ошибок создания модели Comment."""
+        self.client.logout()
         
         car_id = Car.objects.first().id # type: ignore
         comment_1_id = self.client.post(self.comments_url(car_id), data={'content': 'Первый коммет!'}, headers={'Authorization': f'Token {self.user_2_token}'}).json()['id']

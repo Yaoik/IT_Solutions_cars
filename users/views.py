@@ -6,16 +6,23 @@ from rest_framework.authtoken.models import Token
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.request import Request
 import logging
+from django.shortcuts import render
+from django.contrib.auth import login
+from users.models import User
 
 logger = logging.getLogger(__name__)
 
-class RegisterView(APIView):
+def register_form(request):
+    return render(request, 'register.html')
+
+class RegisterView(APIView):    
     """Для регистрации новых пользоватетей."""
     def post(self, request):
         serializer = RegisterSerializer(data=request.data)
         if serializer.is_valid():
-            user = serializer.save()
+            user:User = serializer.save() # type:ignore
             token, created = Token.objects.get_or_create(user=user)
+            login(request, user)
             return Response({
                 "message": "User registered successfully!",
                 "token": token.key

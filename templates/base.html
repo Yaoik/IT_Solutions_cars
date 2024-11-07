@@ -19,8 +19,9 @@
                 {% if user.is_superuser %}
                     <li><a href="/">Swagger</a></li>
                 {% endif %}
-                {% if user.is_anonimouse %}
-                    <li><a href="/">Вход в аккаунт</a></li>
+                {% if user.is_anonymous %}
+                    <li><a href="/">Войти в аккаунт</a></li>
+                    <li><a href="{% url 'users:register_form' %}">Зарегистрироваться</a></li>
                 {% else %}
                     <li><a href="/">Текущий аккаунт: {{user.username}}</a></li>
                 {% endif %}
@@ -28,14 +29,14 @@
         </nav>
     </header>
 
-    <main>
+    <main class=''>
         {% block content %}
-        
+
         {% endblock %}
     </main>
 
-    <footer>
-        <p>&copy; 2024 Мой сайт. Все права защищены.</p>
+    <footer class="absolute bottom-0 w-full text-center">
+        <p>&copy; 2024 Made by Yaoik.</p>
     </footer>
 </body>
 </html>

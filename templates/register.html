@@ -3,12 +3,40 @@
 
 
 {% block scripts %}
-    <script src="{% static 'js/cars.js' %}"></script>
+    <script src="{% static 'js/register.js' %}"></script>
 {% endblock %}
 
-{% block title %}Главная страница{% endblock %}
+{% block title %}Страница регистрации{% endblock %}
 
 {% block content %}
-    <h2>Добро пожаловать на главную страницу</h2>
-    <p>Здесь вы найдёте много полезной информации.</p>
+    <div class="w-4/12 bg-slate-100 border h-auto m-auto mt-16">
+        <h1 class='w-full text-center'>Регистрация</h1>
+        <form id="registerForm" class="w-full h-full [&_div]:flex [&_div]:w-auto [&_div]:min-h-8 flex flex-col m-4 [&_div_input]:border [&_div_input]:w-64 [&_div_label]:w-64 gap-2">
+            {% csrf_token %}
+
+            <div class="">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+    
+            <div class="">
+                <label for="username">Имя пользователя:</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+    
+            <div class="">
+                <label for="password">Пароль:</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+    
+            <div class="">
+                <label for="password2">Подтверждение пароля:</label>
+                <input type="password" id="password2" name="password2" required>
+            </div>
+    
+            <button type="button" id="registerButton" name="registerButton" data-url="{% url 'users:register' %}" data-redirect="{% url 'cars:index' %}">Зарегистрироваться</button>
+        </form>
+    
+        <div id="responseMessage"></div>
+    </div>
 {% endblock %}

@@ -38,6 +38,7 @@ class TestCar(APITestCase):
         return user_data
         
     def setUp(self):
+        self.client.logout()
         register_url = reverse('users:register')
         user_data = self.create_user_data()
         self.user_1_token = self.client.post(register_url, user_data, format='json').json()['token']
@@ -70,6 +71,7 @@ class TestCar(APITestCase):
     def test_create_car_error(self):
         """Тесты ошибок при создании"""
         
+        self.client.logout()
         # Создание без аккаунта
         car_data = self.create_car_data()
         response = self.client.post(self.cars_url, data=car_data)
