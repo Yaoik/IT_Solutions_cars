@@ -24,6 +24,28 @@ $(document).ready(function() {
             console.log('(')
         }
     });
+
+    $('#delteButton').click(function(e) {
+        e.preventDefault();
+        var csrftoken = $('input[name="csrfmiddlewaretoken"]').val();
+        url = $('input[name=car_update_url]').val()
+        $.ajax({
+            url: url,
+            type: 'DELETE',
+            dataType: 'json',
+            contentType: 'application/json',
+            headers: {
+                'X-CSRFToken': csrftoken,
+            },
+            success: function(response) {
+                window.location.href = '/'
+            },
+            error: function(xhr) {
+
+            }
+        });
+    });
+
     $('#editButton').click(function(e) {
         url = $('input[name=car_update_url]').val()
         e.preventDefault();
