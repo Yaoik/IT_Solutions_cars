@@ -4,15 +4,21 @@
 
 1. Создайте виртуальное окружение
 ```bash
-python -m venv .venv
+python3 -m venv .venv
 ```
 2. Запустите базу данных
 ```bash
-docker-compose up
+docker-compose up -d
 ```
 3. Переключитесь на .venv
+
+Windows:
 ```bash
 .venv\Scripts\activate.bat  
+```
+Linux:
+```bash
+source .venv/bin/activate
 ```
 4. Установите зависимости
 ```bash
@@ -36,6 +42,8 @@ python manage.py runserver
 ```
 9. Некоторые полезные страницы
    * Админка - http://127.0.0.1:8000/admin/
-   * API документация
+   * API документация (Доступна под superuser аккаунтом)
      * Swagger - http://127.0.0.1:8000/api/docs/swagger/
      * Redoc - http://127.0.0.1:8000/api/docs/redoc/
+
+Аутентификация возможна через заголовок "Authorization" с "Token some_user_token" либо через cookie "sessionid"
